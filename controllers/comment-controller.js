@@ -18,6 +18,7 @@ const commentController = {
           return;
         }
         res.json(dbPizzaData);
+        console.log(dbPizzaData);
       })
       .catch((err) => res.json(err));
   },
@@ -46,12 +47,15 @@ const commentController = {
   },
 
   addReply({ params, body }, res) {
+    console.log(params);
+    console.log(body);
     Comment.findOneAndUpdate(
       { _id: params.commentId },
       { $push: { replies: body } },
       { new: true }
     )
       .then((dbPizzaData) => {
+        console.log(dbPizzaData)
         if (!dbPizzaData) {
           res.status(404).json({ message: "No pizza found with this id!" });
           return;
